@@ -25,7 +25,8 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT }}
           source: imposter-api.tar.gz
-          target: /tmp/
+          target: /tmp/imposter-api.tar.gz
+          strip_components: 1
 
       - name: Deploy on server
         uses: appleboy/ssh-action@v1.0.3
