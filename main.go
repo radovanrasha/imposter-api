@@ -1,19 +1,23 @@
 package main
 
 import (
-	"imposter-api/db"
 	"imposter-api/routes"
+	"imposter-api/ws"
 	"os"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	db.Init()
-	defer db.DB.Close()
+	// db.Init()
+	// defer db.DB.Close()
+
+	hub := ws.NewHub()
 
 	r := gin.Default()
-	routes.Register(r)
+	r.Use(cors.Default())
+	routes.Register(r, hub)
 
 	port := os.Getenv("PORT")
 	if port == "" {
